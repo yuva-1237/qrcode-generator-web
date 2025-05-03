@@ -14,7 +14,7 @@ function generateQRCode() {
   // Clear previous QR code
   qrContainer.innerHTML = "";
 
-  // Generate new QR Code
+  // Generate new QR Code using canvas
   qr = new QRCode(qrContainer, {
     text: input,
     width: 200,
@@ -24,25 +24,17 @@ function generateQRCode() {
     correctLevel: QRCode.CorrectLevel.H
   });
 
-  // Wait and check for image or canvas
+  // Wait until the QR code is fully rendered
   setTimeout(() => {
-    const qrImg = qrContainer.querySelector("img");
     const qrCanvas = qrContainer.querySelector("canvas");
 
-    let dataURL = "";
-
-    if (qrImg && qrImg.src) {
-      dataURL = qrImg.src;
-    } else if (qrCanvas) {
-      dataURL = qrCanvas.toDataURL("image/png");
-    }
-
-    if (dataURL) {
+    if (qrCanvas) {
+      const dataURL = qrCanvas.toDataURL("image/png");
       downloadBtn.href = dataURL;
       downloadBtn.download = "qrcode.png";
       qrSection.classList.remove("hidden");
     } else {
       alert("QR code generation failed. Please try again.");
     }
-  }, 500);
+  }, 800); // Slightly longer delay for stability
 }
