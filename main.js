@@ -14,8 +14,8 @@ function generateQRCode() {
   // Clear previous QR code
   qrContainer.innerHTML = "";
 
-  // Generate new QR Code
-  qr = new QRCode(qrContainer, {
+  // Force QRCode.js to render as image
+  const qrcode = new QRCode(qrContainer, {
     text: input,
     width: 200,
     height: 200,
@@ -24,25 +24,17 @@ function generateQRCode() {
     correctLevel: QRCode.CorrectLevel.H
   });
 
-  // Wait and check for image or canvas
+  // Wait for the image to render
   setTimeout(() => {
     const qrImg = qrContainer.querySelector("img");
-    const qrCanvas = qrContainer.querySelector("canvas");
-
-    let dataURL = "";
 
     if (qrImg && qrImg.src) {
-      dataURL = qrImg.src;
-    } else if (qrCanvas) {
-      dataURL = qrCanvas.toDataURL("image/png");
-    }
-
-    if (dataURL) {
-      downloadBtn.href = dataURL;
+      downloadBtn.href = qrImg.src;
       downloadBtn.download = "qrcode.png";
+      downloadBtn.classList.remove("hidden");
       qrSection.classList.remove("hidden");
     } else {
-      alert("QR code generation failed. Please try again.");
+      alert("QR Code failed to generate as an image.");
     }
   }, 500);
 }
