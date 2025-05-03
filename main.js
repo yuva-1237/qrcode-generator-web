@@ -7,7 +7,7 @@ function generateQRCode() {
   const downloadBtn = document.getElementById("downloadBtn");
 
   if (!input) {
-    alert("Please enter some text or a URL.");
+    alert("Please enter a URL.");
     return;
   }
 
