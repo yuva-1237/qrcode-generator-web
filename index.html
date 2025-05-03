@@ -23,5 +23,8 @@
   <!-- QR Code Library -->
   <script src="https://cdn.jsdelivr.net/npm/qrcodejs/qrcode.min.js"></script>
   <script src="main.js"></script>
+  <script>
+    QRCode.prototype._android = true; // force use of image on Android
+  </script>
 </body>
 </html>
