@@ -7,34 +7,38 @@ function generateQRCode() {
   const downloadBtn = document.getElementById("downloadBtn");
 
   if (!input) {
-    alert("Please enter a URL.");
+    alert("Please enter a valid URL or text.");
     return;
   }
 
-  // Clear any previous QR code
+  // Clear previous QR code
   qrContainer.innerHTML = "";
 
-  // Create new QR Code
+  // Generate new QR Code
   qr = new QRCode(qrContainer, {
     text: input,
     width: 200,
     height: 200,
-    colorDark: "#2d3748",
+    colorDark: "#000000",
     colorLight: "#ffffff",
     correctLevel: QRCode.CorrectLevel.H
   });
 
-  // Wait for QR to be rendered (image or canvas)
+  // Wait and check for image or canvas
   setTimeout(() => {
     const qrImg = qrContainer.querySelector("img");
     const qrCanvas = qrContainer.querySelector("canvas");
 
+    let dataURL = "";
+
     if (qrImg && qrImg.src) {
-      downloadBtn.href = qrImg.src;
-      downloadBtn.download = "qrcode.png";
-      qrSection.classList.remove("hidden");
+      dataURL = qrImg.src;
     } else if (qrCanvas) {
-      downloadBtn.href = qrCanvas.toDataURL("image/png");
+      dataURL = qrCanvas.toDataURL("image/png");
+    }
+
+    if (dataURL) {
+      downloadBtn.href = dataURL;
       downloadBtn.download = "qrcode.png";
       qrSection.classList.remove("hidden");
     } else {
