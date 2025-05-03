@@ -18,6 +18,10 @@
       <div id="qrcode"></div>
       <a id="downloadBtn" href="#" download="qrcode.png">⬇️ Download PNG</a>
     </div>
+<div id="qrcode" style="display: none;"></div>
+<script>
+  QRCode.prototype._android = true; // force use of image
+</script>
   </div>
 
   <!-- QR Code Library -->
