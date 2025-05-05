@@ -29,9 +29,9 @@ function generateQRCode() {
     const qrCanvas = qrContainer.querySelector("canvas");
 
     if (qrCanvas) {
-      const dataURL = qrCanvas.toDataURL("image/png");
+      const dataURL = qrCanvas.toDataURL("image/png/jpg");
       downloadBtn.href = dataURL;
-      downloadBtn.download = "qrcode.png";
+      downloadBtn.download = "qrcode.jpg";
       qrSection.classList.remove("hidden");
     } else {
       alert("QR code generation failed. Please try again.");
